@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo پیشرفته JS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <h1>مدیریت وظایف</h1>
+
+        <div class="input-area">
+            <input type="text" id="todo-input" placeholder="وظیفه جدید...">
+            <button id="add-todo-btn">افزودن</button>
+        </div>
+
+        <div class="controls">
+            <div class="filters">
+                <button id="filter-all" class="active">همه</button>
+                <button id="filter-active">فعال</button>
+                <button id="filter-completed">تکمیل شده</button>
+            </div>
+            <button id="undo-btn" disabled>برگرداندن (Undo)</button>
+        </div>
+
+        <ul id="todo-list" class="todo-list">
+        </ul>
+
+        <p class="summary">
+            <span id="active-count">0</span> وظیفه فعال باقی مانده.
+        </p>
+
+    </div>
+
+    <script type="module" src="logic/app.js"></script>
+</body>
+
+</html>

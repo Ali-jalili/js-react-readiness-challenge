@@ -1,0 +1,201 @@
+/* تنظیمات عمومی و راست به چپ */
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.3/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--bg-color);
+    color: #343a40;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    min-height: 100vh;
+    direction: rtl; /* تنظیم جهت راست به چپ */
+    text-align: right;
+}
+
+/* ساختار اصلی برنامه */
+.app-container {
+    width: 100%;
+    max-width: 550px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* بخش ورودی */
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#todo-input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+/* دکمه‌ها */
+button {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+#add-todo-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#add-todo-btn:hover {
+    background-color: #0056b3;
+}
+
+/* لیست وظایف */
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-text {
+    flex-grow: 1;
+    font-size: 1.1rem;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--secondary-color);
+}
+
+/* اکشن‌ها و دکمه‌ها درون آیتم */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.toggle-complete {
+    background-color: var(--success-color);
+    color: white;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+}
+
+.delete-todo {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+}
+
+/* کنترل‌ها و فیلترها */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.filters button {
+    background: none;
+    color: var(--secondary-color);
+    border: 1px solid transparent;
+    padding: 5px 10px;
+}
+
+.filters button.active {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+#undo-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 0.9rem;
+}
+
+#undo-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.summary {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+}
+
+.summary #active-count {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* مدیای کوئری برای ریسپانسیو بودن */
+@media (max-width: 600px) {
+    .app-container {
+        padding: 20px;
+    }
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    .filters {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+}
