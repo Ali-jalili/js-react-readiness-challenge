@@ -77,3 +77,29 @@ const saveState = function (state) {
 
     localStorage.setItem('todos', postItem)
 }
+
+
+const undo = function (history) {
+
+    if (history.length === 0) {
+        console.log('تاریخچه خالی است');
+        alert('تاریخچه خالی است')
+        return []
+
+    }
+
+    else {
+
+
+        let newState = history.pop();
+
+        return {
+            'newState': newState,
+            'newHistory': history
+        }
+
+
+
+    }
+
+}
