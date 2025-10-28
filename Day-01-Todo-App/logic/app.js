@@ -111,6 +111,31 @@ const AppController = function () {
     undoButton.addEventListener('click', handleUndo)
 
 
+    const handleFilterChange = function (e) {
+
+        const filterId = e.target.id;
+
+        const newFilter = filterId.replace('filter-', '');
+        if (newFilter === currentFilter) return
+
+        const filterButtons = [filterAll, filterActive, filterCompleted];
+
+        // کلاس 'active' را از همه دکمه‌ها حذف کنید.
+        filterButtons.forEach(btn => btn.classList.remove('active'))
+
+        e.target.classList.add('active');
+
+        currentFilter = newFilter;
+
+        renderTodoList(currentState, currentFilter);
+
+    }
+
+
+    filterAll.addEventListener('click', handleFilterChange);
+    filterActive.addEventListener('click', handleFilterChange);
+    filterCompleted.addEventListener('click', handleFilterChange);
+
 
 }
 
