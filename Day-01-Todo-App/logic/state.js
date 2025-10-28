@@ -1,5 +1,3 @@
-
-
 export const getInitialState = function () {
 
     const itemTodo = localStorage.getItem('todos');
@@ -41,7 +39,6 @@ export const addTodo = function (state, text) {
 }
 
 
-
 export const deleteTodo = function (state, id) {
 
     let deletItem = state.filter(item => item.id !== id)
@@ -71,7 +68,7 @@ export const toggleTodo = function (state, id) {
 }
 
 
-const saveState = function (state) {
+export const saveState = function (state) {
 
     const postItem = JSON.stringify(state);
 
@@ -79,7 +76,7 @@ const saveState = function (state) {
 }
 
 
-const undo = function (history) {
+export const undo = function (history) {
 
     if (history.length === 0) {
         console.log('تاریخچه خالی است');
