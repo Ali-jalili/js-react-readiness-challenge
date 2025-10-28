@@ -11,13 +11,13 @@ const currentFilter = 'all'
 const AppController = function () {
 
     // ۱. رندر اولیه: نمایش Todoها برای اولین بار
-    renderTodoList();
+    renderTodoList(currentState, currentFilter);
 
     // ۲. به‌روزرسانی شمارنده: نمایش تعداد وظایف فعال
-    updateActiveCount()
+    updateActiveCount(currentState)
 
     // ۳. به‌روزرسانی دکمه Undo: غیرفعال کردن اولیه دکمه
-    updateUndoButton()
+    updateUndoButton(history)
 
 }
 
