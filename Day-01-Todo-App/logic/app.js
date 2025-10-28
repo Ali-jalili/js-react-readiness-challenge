@@ -4,8 +4,8 @@ import { todoInput, addTodoBtn, todoList, undoButton, renderTodoList, updateActi
 
 
 let currentState = getInitialState()
-const history = []
-const currentFilter = 'all'
+let history = []
+let currentFilter = 'all'
 
 
 const AppController = function () {
@@ -73,7 +73,7 @@ const AppController = function () {
 
         if (!clickedElement) return;
 
-        const todoId = Number(clickedElement.dataset.id);
+        const todoId = +clickedElement.dataset.id;
 
         // ۱. ذخیره تاریخچه
         history.push(currentState);
@@ -90,7 +90,27 @@ const AppController = function () {
 
     }
 
-    todoList.addEventListener('click', handleTodoItemClick)
+    todoList.addEventListener('click', handleTodoItemClick);
+
+
+
+    const handleUndo = function () {
+
+        let result = undo(history);
+
+        currentState = result.newState;
+        history = result.newHistory;
+
+        saveState(currentState);
+        renderTodoList(currentState, currentFilter);
+        updateActiveCount(currentState);
+        updateUndoButton(history);
+
+    }
+
+    undoButton.addEventListener('click', handleUndo)
+
+
 
 }
 
