@@ -66,38 +66,7 @@ const AppController = function () {
     });
 
 
-    // const handleTodoItemClick = function (e) {
 
-    //     const clickedElement = e.target.closest('[data-id]');;
-    //     if (!clickedElement) return;
-    //     const todoId = +clickedElement.dataset.id;
-
-
-    //     if (e.target.classList.contains('delete-todo')) {
-    //         // منطق حذف
-    //         history.push(currentState);
-    //         currentState = deleteTodo(currentState, todoId); // ⬅️ استفاده از تابع deleteTodo
-
-    //     } else {
-    //         // منطق Toggle (که قبلاً نوشتیم)
-    //         history.push(currentState);
-    //         currentState = toggleTodo(currentState, todoId); // ⬅️ استفاده از تابع toggleTodo
-    //     }
-
-    //     // ۱. ذخیره تاریخچه
-    //     history.push(currentState);
-
-    //     // ۲. به‌روزرسانی State
-    //     currentState = toggleTodo(currentState, todoId);
-
-    //     // ۳. به‌روزرسانی‌های نهایی 
-    //     saveState(currentState);
-    //     renderTodoList(currentState, currentFilter);
-    //     updateActiveCount(currentState);
-    //     updateUndoButton(history);
-
-
-    // }
 
     const handleTodoItemClick = function (e) {
 
@@ -173,6 +142,24 @@ const AppController = function () {
 
 
 
+    const handleEditStart = function (e) {
+
+        let listItem = e.target.closest('.todo-item');
+        if (!listItem) return;
+
+        if (e.target.classList.contains('item-text')) {
+
+            listItem.classList.add('editing');
+            const inputField = listItem.querySelector('.edit-input');
+            inputField.focus();
+            inputField.select();
+
+        }
+
+    }
+
+
+    todoList.addEventListener('dblclick', handleEditStart)
 
 
 }
