@@ -132,7 +132,7 @@ button {
     font-size: 0.9rem;
 }
 
-.delete-todo {
+.delete-btn {
     background-color: var(--danger-color);
     color: white;
     padding: 6px 10px;
@@ -212,4 +212,40 @@ button {
     color: var(--text-muted-color, #999); 
     /* اگر opacity هم نیاز دارید */
     opacity: 0.7;
+}
+
+
+
+/* style.css */
+
+/* 1. استایل پایه برای فیلد ویرایش */
+.todo-item .edit-input {
+    /* در حالت عادی، فیلد ویرایش مخفی است */
+    display: none;
+    flex-grow: 1; /* اجازه رشد برای پر کردن فضای خالی */
+    padding: 8px 10px;
+    border: 1px solid var(--primary-color, #007bff);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* 2. استایل برای متن آیتم */
+.todo-item .item-text {
+    flex-grow: 1; /* اجازه رشد برای پر کردن فضای خالی */
+    padding: 8px 0;
+    /* این بخش برای نشان دادن Strikethrough روی متن تکمیل شده مهم است */
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+/* 3. مدیریت حالت ویرایش (کلاس "editing") */
+/* وقتی li دارای کلاس "editing" باشد: */
+.todo-item.editing .item-text,
+.todo-item.editing .item-actions {
+    /* متن و دکمه‌های اکشن را مخفی کن */
+    display: none;
+}
+
+.todo-item.editing .edit-input {
+    /* فیلد ویرایش را نمایش بده */
+    display: block;
 }

@@ -18,23 +18,53 @@ export const activeCountSpan = document.getElementById('active-count');
 
 export const createTodoElement = function (todo) {
 
+    //Creat LI
     const newElement = document.createElement('li');
     newElement.classList.add('todo-item')
-
     newElement.setAttribute('data-id', todo.id);
-
-    newElement.textContent = todo.text;
-
+    // newElement.textContent = todo.text;
     if (todo.isCompleted) {
         newElement.classList.add('completed')
     }
 
+
+    //Cret Span for show Text
+
+    const textSpan = document.createElement('span')
+    textSpan.textContent = todo.text;
+    textSpan.classList.add('item-text');
+    newElement.appendChild(textSpan)
+
+
+    //Creat Input for Edit Item
+    const editInputItem = document.createElement('input');
+    editInputItem.type = 'text';
+    editInputItem.value = todo.text;
+    editInputItem.classList.add('edit-input');
+    newElement.appendChild(editInputItem);
+
+
+    //Creat Div for actions
+    const actionsDiv = document.createElement('div');
+    actionsDiv.classList.add('item-actions');
+
+
+    //Creat Toggle Btn
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = 'تیک';
+    toggleBtn.classList.add('action-btn', 'complete-btn');
+    toggleBtn.setAttribute('data-action', 'toggle');
+    actionsDiv.appendChild(toggleBtn);
+
+    //Creat Delete Btn
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'حذف';
-    deleteBtn.classList.add('delete-todo');
+    deleteBtn.classList.add('action-btn', 'delete-btn');
+    deleteBtn.setAttribute('data-action', 'delete');
+    actionsDiv.appendChild(deleteBtn);
 
-    // اضافه کردن دکمه به li
-    newElement.appendChild(deleteBtn);
+
+    newElement.appendChild(actionsDiv);
 
     return newElement;
 
