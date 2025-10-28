@@ -14,6 +14,7 @@
     --card-bg: #ffffff;
     --border-color: #dee2e6;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --text-muted-color: #999; /* برای آیتم‌های تکمیل شده */
 }
 
 * {
@@ -31,7 +32,7 @@ body {
     align-items: flex-start;
     padding: 40px 20px;
     min-height: 100vh;
-    direction: rtl; /* تنظیم جهت راست به چپ */
+    direction: rtl; 
     text-align: right;
 }
 
@@ -96,6 +97,10 @@ button {
 }
 
 
+/* ------------------------------------------- */
+/* استایل آیتم و قابلیت Edit/Toggle/Delete */
+/* ------------------------------------------- */
+
 .todo-item {
     display: flex;
     justify-content: space-between;
@@ -109,38 +114,74 @@ button {
     border-bottom: none;
 }
 
-.todo-text {
-    flex-grow: 1;
+/* ۱. استایل SPAN نمایش متن (item-text) */
+.todo-item .item-text {
+    flex-grow: 1; 
     font-size: 1.1rem;
+    padding: 8px 0;
+    /* این بخش برای نشان دادن Strikethrough روی متن تکمیل شده مهم است */
+    transition: color 0.3s, text-decoration 0.3s;
 }
 
-.todo-item.completed .todo-text {
+/* ۲. استایل INPUT ویرایش (edit-input) */
+.todo-item .edit-input {
+    display: none; /* ⬅️ در حالت عادی مخفی است */
+    flex-grow: 1; 
+    padding: 8px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+/* ۳. مدیریت حالت ویرایش (کلاس "editing") */
+/* وقتی li دارای کلاس "editing" باشد: */
+.todo-item.editing .item-text,
+.todo-item.editing .item-actions { 
+    /* متن و دکمه‌های اکشن را مخفی کن */
+    display: none;
+}
+
+.todo-item.editing .edit-input {
+    /* فیلد ویرایش را نمایش بده */
+    display: block;
+}
+
+
+/* ۴. استایل‌های تکمیل شده (Completed) */
+.todo-item.completed .item-text {
     text-decoration: line-through;
-    color: var(--secondary-color);
+    color: var(--text-muted-color);
+    opacity: 0.7;
 }
 
-/* اکشن‌ها و دکمه‌ها درون آیتم */
-.actions {
+/* ۵. اکشن‌ها و دکمه‌ها درون آیتم */
+.item-actions { /* ⬅️ نام کلاس نهایی (item-actions) */
     display: flex;
     gap: 8px;
+    margin-right: 15px;
 }
 
-.toggle-complete {
-    background-color: var(--success-color);
-    color: white;
+.action-btn {
     padding: 6px 10px;
     font-size: 0.9rem;
+}
+
+.complete-btn { /* ⬅️ نام کلاس نهایی (complete-btn) */
+    background-color: var(--success-color);
+    color: white;
 }
 
 .delete-btn {
     background-color: var(--danger-color);
     color: white;
-    padding: 6px 10px;
-    font-size: 0.9rem;
-    
 }
 
-/* کنترل‌ها و فیلترها */
+
+/* ------------------------------------------- */
+/* کنترل‌ها، Undo و فیلترها */
+/* ------------------------------------------- */
+
 .controls {
     display: flex;
     justify-content: space-between;
@@ -200,52 +241,4 @@ button {
         justify-content: space-around;
         width: 100%;
     }
-}
-
-
-/* style.css */
-
-.todo-list .completed {
-    /* خط کشیدن روی متن */
-    text-decoration: line-through;
-    /* کم‌رنگ کردن متن */
-    color: var(--text-muted-color, #999); 
-    /* اگر opacity هم نیاز دارید */
-    opacity: 0.7;
-}
-
-
-
-/* style.css */
-
-/* 1. استایل پایه برای فیلد ویرایش */
-.todo-item .edit-input {
-    /* در حالت عادی، فیلد ویرایش مخفی است */
-    display: none;
-    flex-grow: 1; /* اجازه رشد برای پر کردن فضای خالی */
-    padding: 8px 10px;
-    border: 1px solid var(--primary-color, #007bff);
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-/* 2. استایل برای متن آیتم */
-.todo-item .item-text {
-    flex-grow: 1; /* اجازه رشد برای پر کردن فضای خالی */
-    padding: 8px 0;
-    /* این بخش برای نشان دادن Strikethrough روی متن تکمیل شده مهم است */
-    transition: color 0.3s, text-decoration 0.3s;
-}
-
-/* 3. مدیریت حالت ویرایش (کلاس "editing") */
-/* وقتی li دارای کلاس "editing" باشد: */
-.todo-item.editing .item-text,
-.todo-item.editing .item-actions {
-    /* متن و دکمه‌های اکشن را مخفی کن */
-    display: none;
-}
-
-.todo-item.editing .edit-input {
-    /* فیلد ویرایش را نمایش بده */
-    display: block;
 }

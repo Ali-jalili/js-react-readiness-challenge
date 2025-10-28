@@ -56,17 +56,6 @@ const AppController = function () {
 
     }
 
-    addTodoBtn.addEventListener('click', handleInput);
-
-    todoInput.addEventListener('keyup', (event) => {
-        // اگر کلید فشرده شده، کلید Enter بود:
-        if (event.key === 'Enter') {
-            handleInput();
-        }
-    });
-
-
-
 
     const handleTodoItemClick = function (e) {
 
@@ -81,10 +70,12 @@ const AppController = function () {
 
         history.push(currentState); // ⬅️ ذخیره تاریخچه قبل از تغییر
 
-        if (e.target.classList.contains('delete-btn')) { // ⬅️ فرض می‌کنیم کلاس دکمه Delete، '.delete-btn' است (اگر در dom.js کلاس '.delete-todo' است، آن را جایگزین کنید).
+        if (e.target.classList.contains('delete-btn')) {
             currentState = deleteTodo(currentState, todoId);
-        } else if (e.target.classList.contains('complete-btn') || e.target.classList.contains('item-text')) {
-            // اگر روی دکمه تیک یا متن کلیک شد
+        }
+        // ⬅️ تغییر مهم: '|| e.target.classList.contains('item-text')' حذف شد
+        else if (e.target.classList.contains('complete-btn')) {
+            // اگر روی دکمه تیک کلیک شد
             currentState = toggleTodo(currentState, todoId);
         } else {
             // اگر روی فضای خالی کلیک شد، تغییری نداریم. history را برمی‌گردانیم.
@@ -98,8 +89,6 @@ const AppController = function () {
         updateActiveCount(currentState);
         updateUndoButton(history);
     }
-
-    todoList.addEventListener('click', handleTodoItemClick);
 
 
 
@@ -116,8 +105,6 @@ const AppController = function () {
         updateUndoButton(history);
 
     }
-
-    undoButton.addEventListener('click', handleUndo)
 
 
     const handleFilterChange = function (e) {
@@ -141,60 +128,35 @@ const AppController = function () {
     }
 
 
-    filterAll.addEventListener('click', handleFilterChange);
-    filterActive.addEventListener('click', handleFilterChange);
-    filterCompleted.addEventListener('click', handleFilterChange);
+    const handleEditEnd = function (e) {
 
-
-
-    const handleEditStart = function (e) {
-
+        const inputField = e.target;
         let listItem = e.target.closest('.todo-item');
         if (!listItem) return;
 
-        if (e.target.classList.contains('item-text')) {
 
-            listItem.classList.add('editing');
-            const inputField = listItem.querySelector('.edit-input');
-            inputField.focus();
-            inputField.select();
-
-        }
-
-    }
-
-
-    todoList.addEventListener('dblclick', handleEditStart)
-
-
-
-    const handleEditEnd = function (e) {
-        // ... (کد handleEditEnd که در بالا نوشته شد)
-        // ... (توضیحات در بالا، حذف مجدد برای کوتاهی)
-
-        const inputField = e.target;
-        const listItem = inputField.closest('.todo-item');
-        const todoId = Number(listItem.dataset.id);
+        const todoId = +listItem.dataset.id;
         const newText = inputField.value.trim();
+        const oldText = listItem.querySelector('.item-text').textContent;
 
-        // 1. مدیریت لغو (Escape)
+
         if (e.type === 'keyup' && e.key === 'Escape') {
-            inputField.value = listItem.querySelector('.item-text').textContent;
-            listItem.classList.remove('editing');
-            return;
+            inputField.value = oldText;
+
+            listItem.classList.remove('editing')
+
+            return
         }
 
-        // 2. بررسی شرط ذخیره (Enter یا Blur)
         const shouldSave = (e.type === 'keyup' && e.key === 'Enter') || e.type === 'blur';
+
 
         if (!shouldSave) {
             return;
         }
 
-        // اگر آیتم قبلا در حالت ویرایش نبوده یا رویداد اشتباهی است، متوقف شو.
         if (!listItem.classList.contains('editing')) return;
 
-        // 3. ذخیره تاریخچه قبل از هر تغییری
         let isUpdated = false;
 
         if (newText === '') {
@@ -209,7 +171,7 @@ const AppController = function () {
             isUpdated = true;
         }
 
-        // 5. خروج از حالت ویرایش (مهم: حتی اگر تغییر نکرده باشد)
+
         listItem.classList.remove('editing');
 
         // 6. به‌روزرسانی UI فقط در صورت تغییر (بهینه‌سازی)
@@ -219,30 +181,65 @@ const AppController = function () {
             updateActiveCount(currentState);
             updateUndoButton(history);
         }
-    };
 
 
-    todoList.addEventListener('click', handleTodoItemClick);
-    todoList.addEventListener('dblclick', handleEditStart);
+    }
 
-    // اتصال رویدادهای پایان ویرایش به لیست والد
-    // توجه: ما از Event Delegation برای keyup و blur روی فیلد input استفاده می‌کنیم.
+    const handleEditStart = function (e) {
+        // ۱. پیدا کردن والد li و بررسی اینکه آیا روی آیتم کلیک شده است
+        let listItem = e.target.closest('.todo-item');
+        if (!listItem) return;
+
+        // ۲. فیلتر: مطمئن می‌شویم که دابل‌کلیک روی span متن (item-text) رخ داده است
+        if (e.target.classList.contains('item-text')) {
+
+            // ۳. فعال کردن حالت ویرایش (CSS input را نمایش می‌دهد)
+            listItem.classList.add('editing');
+
+            // ۴. فوکوس و انتخاب متن داخل input
+            const inputField = listItem.querySelector('.edit-input');
+            inputField.focus();
+            inputField.select(); // متن داخل را انتخاب می‌کند
+        }
+    }
+
+
+    // اتصال keyup (برای Enter و Escape)
     todoList.addEventListener('keyup', (e) => {
         if (e.target.classList.contains('edit-input')) {
             handleEditEnd(e);
         }
     });
 
+    // اتصال blur (برای از دست دادن فوکوس)
     todoList.addEventListener('blur', (e) => {
         if (e.target.classList.contains('edit-input')) {
             handleEditEnd(e);
         }
-    }, true);
+    }, true); // از مرحله Capture (true) استفاده می‌شود.
 
+
+
+    // Evants
+
+    addTodoBtn.addEventListener('click', handleInput);
+
+    todoInput.addEventListener('keyup', (event) => {
+        // اگر کلید فشرده شده، کلید Enter بود:
+        if (event.key === 'Enter') {
+            handleInput();
+        }
+    });
+
+    todoList.addEventListener('click', handleTodoItemClick);
+    undoButton.addEventListener('click', handleUndo)
+    filterAll.addEventListener('click', handleFilterChange);
+    filterActive.addEventListener('click', handleFilterChange);
+    filterCompleted.addEventListener('click', handleFilterChange);
+    todoList.addEventListener('dblclick', handleEditStart);
 
 }
 
 AppController();
-
 
 
