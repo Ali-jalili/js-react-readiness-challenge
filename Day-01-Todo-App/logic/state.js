@@ -125,18 +125,3 @@ export const editTodo = function (state, id, newText) {
 
 }
 
-
-
-
-
-// export const editTodo = function (state, id, newText) {
-//     return state.map(item => {
-//         if (item.id === id) {
-//             return {
-//                 ...item, // ✅ حالا تمام پراپرتی‌های "item" کپی می‌شوند
-//                 text: newText
-//             }
-//         }
-//         return item;
-//     })
-// }

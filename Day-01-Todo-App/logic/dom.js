@@ -2,6 +2,8 @@
 export const todoInput = document.getElementById('todo-input');
 export const todoList = document.getElementById('todo-list');
 export const addTodoBtn = document.getElementById('add-todo-btn');
+export const inputArea = document.querySelector('.input-area');
+export const errorMessageElement = document.getElementById('error-message')
 
 // ۲. المان‌های کنترل و Undo
 export const undoButton = document.getElementById('undo-btn');
@@ -125,3 +127,20 @@ export const updateUndoButton = function (history) {
 
     }
 }
+
+
+
+
+export const errText = (message) => {
+    // این تابع منطق تنظیم متن، نمایش و مخفی کردن را مدیریت می کند.
+    errorMessageElement.textContent = message;
+    errorMessageElement.classList.add('visible');
+    addTodoBtn.disabled = true; // غیر فعال کردن دکمه افزودن
+
+    // حذف پیام خطا بعد از 3 ثانیه
+    setTimeout(() => {
+        errorMessageElement.classList.remove('visible');
+        errorMessageElement.textContent = '';
+        addTodoBtn.disabled = false;
+    }, 3000);
+};

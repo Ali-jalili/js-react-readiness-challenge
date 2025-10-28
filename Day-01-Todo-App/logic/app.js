@@ -1,6 +1,6 @@
 import { getInitialState, saveState, addTodo, deleteTodo, toggleTodo, undo, editTodo } from "./state.js";
 
-import { todoInput, addTodoBtn, todoList, undoButton, renderTodoList, updateActiveCount, updateUndoButton, filterAll, filterActive, filterCompleted } from "./dom.js";
+import { todoInput, addTodoBtn, todoList, undoButton, renderTodoList, updateActiveCount, updateUndoButton, filterAll, filterActive, filterCompleted, errText } from "./dom.js";
 
 
 let currentState = getInitialState()
@@ -27,7 +27,9 @@ const AppController = function () {
 
         if (textInputTodo === '') {
 
-            return alert('فیلد ورودی خالی است😶')
+            // return alert('فیلد ورودی خالی است😶')
+
+            return errText('فیلد ورودی خالی است😶')
 
         }
 
@@ -42,17 +44,7 @@ const AppController = function () {
         updateActiveCount(currentState);
         updateUndoButton(history);
 
-
-
         todoInput.value = ''
-
-
-
-
-
-
-
-
 
     }
 
