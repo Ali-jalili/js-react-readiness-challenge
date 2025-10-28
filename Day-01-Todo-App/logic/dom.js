@@ -68,7 +68,7 @@ export const updateActiveCount = function (todos) {
 
     const upItem = todos.filter(item => item.isCompleted === false);
 
-    activeCountSpan.textContent = upItem.lengthک
+    activeCountSpan.textContent = upItem.length
 }
 
 
