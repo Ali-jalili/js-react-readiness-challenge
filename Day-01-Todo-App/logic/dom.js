@@ -68,9 +68,20 @@ const updateActiveCount = function (todos) {
 
     const upItem = todos.filter(item => item.isCompleted === false);
 
-    activeCountSpan.textContent = upItem.length
-
+    activeCountSpan.textContent = upItem.lengthک
 }
 
 
 
+const updateUndoButton = function (history) {
+
+    if (history.length > 0) {
+        undoButton.disabled = false
+
+    }
+
+    else {
+        undoButton.disabled = true
+
+    }
+}
