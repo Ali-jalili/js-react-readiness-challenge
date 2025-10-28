@@ -19,6 +19,7 @@ export const activeCountSpan = document.getElementById('active-count');
 export const createTodoElement = function (todo) {
 
     const newElement = document.createElement('li');
+    newElement.classList.add('todo-item')
 
     newElement.setAttribute('data-id', todo.id);
 

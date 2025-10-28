@@ -95,6 +95,7 @@ button {
     margin-bottom: 20px;
 }
 
+
 .todo-item {
     display: flex;
     justify-content: space-between;
@@ -136,6 +137,7 @@ button {
     color: white;
     padding: 6px 10px;
     font-size: 0.9rem;
+    
 }
 
 /* کنترل‌ها و فیلترها */
