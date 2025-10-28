@@ -31,13 +31,18 @@ const AppController = function () {
 
         }
 
+        history.push(currentState);
+
         currentState = addTodo(currentState, textInputTodo);
 
         saveState(currentState);
 
         renderTodoList(currentState, currentFilter);
 
-        updateActiveCount()
+        updateActiveCount(currentState);
+        updateUndoButton(history);
+
+
 
         todoInput.value = ''
 
@@ -51,8 +56,14 @@ const AppController = function () {
 
     }
 
+    addTodoBtn.addEventListener('click', handleInput);
 
-    addTodoBtn.addEventListener('click', handleInput)
+    todoInput.addEventListener('keyup', (event) => {
+        // اگر کلید فشرده شده، کلید Enter بود:
+        if (event.key === 'Enter') {
+            handleInput();
+        }
+    });
 
 }
 
@@ -60,12 +71,3 @@ AppController();
 
 
 
-addTodoBtn.addEventListener('click', function () {
-    let textInput = todoInput.value;
-
-    if (textInput.value === '') {
-        alert('فیلد ورودی خالی است')
-    }
-
-    addTodo(currentState)
-})
