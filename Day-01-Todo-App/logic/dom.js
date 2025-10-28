@@ -64,4 +64,13 @@ const renderTodoList = function (todos, currentFilter) {
 
 
 
+const updateActiveCount = function (todos) {
+
+    const upItem = todos.filter(item => item.isCompleted === false);
+
+    activeCountSpan.textContent = upItem.length
+
+}
+
+
 
