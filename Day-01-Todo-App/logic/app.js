@@ -65,6 +65,33 @@ const AppController = function () {
         }
     });
 
+
+    const handleTodoItemClick = function (e) {
+
+        const clickedElement = e.target.closest('[data-id]');;
+
+
+        if (!clickedElement) return;
+
+        const todoId = Number(clickedElement.dataset.id);
+
+        // ۱. ذخیره تاریخچه
+        history.push(currentState);
+
+        // ۲. به‌روزرسانی State
+        currentState = toggleTodo(currentState, todoId);
+
+        // ۳. به‌روزرسانی‌های نهایی 
+        saveState(currentState);
+        renderTodoList(currentState, currentFilter);
+        updateActiveCount(currentState);
+        updateUndoButton(history);
+
+
+    }
+
+    todoList.addEventListener('click', handleTodoItemClick)
+
 }
 
 AppController();
