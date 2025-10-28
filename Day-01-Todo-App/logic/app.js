@@ -1,4 +1,4 @@
-import { getInitialState, saveState, addTodo, deleteTodo, toggleTodo, undo } from "./state.js";
+import { getInitialState, saveState, addTodo, deleteTodo, toggleTodo, undo, editTodo } from "./state.js";
 
 import { todoInput, addTodoBtn, todoList, undoButton, renderTodoList, updateActiveCount, updateUndoButton, filterAll, filterActive, filterCompleted } from "./dom.js";
 
@@ -70,24 +70,29 @@ const AppController = function () {
 
     const handleTodoItemClick = function (e) {
 
-        // ۱. Event Delegation: پیدا کردن ID
         const clickedElement = e.target.closest('[data-id]');
         if (!clickedElement) return;
-        const todoId = Number(clickedElement.dataset.id); // ⬅️ استفاده از Number برای اطمینان از نوع
+        const todoId = Number(clickedElement.dataset.id);
 
-        // ۲. ذخیره تاریخچه (قبل از هر تغییری)
-        history.push(currentState);
-
-        // ۳. منطق اصلی: تشخیص Delete یا Toggle
-        if (e.target.classList.contains('delete-todo')) {
-            // عملیات حذف
-            currentState = deleteTodo(currentState, todoId); // ⬅️ تغییر State اصلی 
-        } else {
-            // عملیات Toggle (کلیک روی خود آیتم یا متن)
-            currentState = toggleTodo(currentState, todoId); // ⬅️ تغییر State اصلی
+        // ۱. اگر روی 'input' در حالت ویرایش کلیک شد، کاری نکن.
+        if (clickedElement.classList.contains('editing') && e.target.classList.contains('edit-input')) {
+            return;
         }
 
-        // ۴. به‌روزرسانی‌های نهایی (فقط یک بار اجرا شوند)
+        history.push(currentState); // ⬅️ ذخیره تاریخچه قبل از تغییر
+
+        if (e.target.classList.contains('delete-btn')) { // ⬅️ فرض می‌کنیم کلاس دکمه Delete، '.delete-btn' است (اگر در dom.js کلاس '.delete-todo' است، آن را جایگزین کنید).
+            currentState = deleteTodo(currentState, todoId);
+        } else if (e.target.classList.contains('complete-btn') || e.target.classList.contains('item-text')) {
+            // اگر روی دکمه تیک یا متن کلیک شد
+            currentState = toggleTodo(currentState, todoId);
+        } else {
+            // اگر روی فضای خالی کلیک شد، تغییری نداریم. history را برمی‌گردانیم.
+            history.pop();
+            return;
+        }
+
+        // به‌روزرسانی‌های نهایی 
         saveState(currentState);
         renderTodoList(currentState, currentFilter);
         updateActiveCount(currentState);
@@ -160,6 +165,79 @@ const AppController = function () {
 
 
     todoList.addEventListener('dblclick', handleEditStart)
+
+
+
+    const handleEditEnd = function (e) {
+        // ... (کد handleEditEnd که در بالا نوشته شد)
+        // ... (توضیحات در بالا، حذف مجدد برای کوتاهی)
+
+        const inputField = e.target;
+        const listItem = inputField.closest('.todo-item');
+        const todoId = Number(listItem.dataset.id);
+        const newText = inputField.value.trim();
+
+        // 1. مدیریت لغو (Escape)
+        if (e.type === 'keyup' && e.key === 'Escape') {
+            inputField.value = listItem.querySelector('.item-text').textContent;
+            listItem.classList.remove('editing');
+            return;
+        }
+
+        // 2. بررسی شرط ذخیره (Enter یا Blur)
+        const shouldSave = (e.type === 'keyup' && e.key === 'Enter') || e.type === 'blur';
+
+        if (!shouldSave) {
+            return;
+        }
+
+        // اگر آیتم قبلا در حالت ویرایش نبوده یا رویداد اشتباهی است، متوقف شو.
+        if (!listItem.classList.contains('editing')) return;
+
+        // 3. ذخیره تاریخچه قبل از هر تغییری
+        let isUpdated = false;
+
+        if (newText === '') {
+            // 4a. حذف در صورت خالی بودن
+            history.push(currentState);
+            currentState = deleteTodo(currentState, todoId);
+            isUpdated = true;
+        } else if (newText !== listItem.querySelector('.item-text').textContent) {
+            // 4b. ویرایش در صورت تغییر متن
+            history.push(currentState);
+            currentState = editTodo(currentState, todoId, newText);
+            isUpdated = true;
+        }
+
+        // 5. خروج از حالت ویرایش (مهم: حتی اگر تغییر نکرده باشد)
+        listItem.classList.remove('editing');
+
+        // 6. به‌روزرسانی UI فقط در صورت تغییر (بهینه‌سازی)
+        if (isUpdated) {
+            saveState(currentState);
+            renderTodoList(currentState, currentFilter);
+            updateActiveCount(currentState);
+            updateUndoButton(history);
+        }
+    };
+
+
+    todoList.addEventListener('click', handleTodoItemClick);
+    todoList.addEventListener('dblclick', handleEditStart);
+
+    // اتصال رویدادهای پایان ویرایش به لیست والد
+    // توجه: ما از Event Delegation برای keyup و blur روی فیلد input استفاده می‌کنیم.
+    todoList.addEventListener('keyup', (e) => {
+        if (e.target.classList.contains('edit-input')) {
+            handleEditEnd(e);
+        }
+    });
+
+    todoList.addEventListener('blur', (e) => {
+        if (e.target.classList.contains('edit-input')) {
+            handleEditEnd(e);
+        }
+    }, true);
 
 
 }

@@ -101,19 +101,42 @@ export const undo = function (history) {
 
 }
 
+
+
+
+
 export const editTodo = function (state, id, newText) {
 
-    return state.map(item => {
+
+    let newTodoEdit = state.map(item => {
         if (item.id === id) {
             return {
-                ...todo,
+                ...item,
                 text: newText
             }
-
         }
 
-        return item;
+        return item
+
+
     })
 
+    return newTodoEdit
 
 }
+
+
+
+
+
+// export const editTodo = function (state, id, newText) {
+//     return state.map(item => {
+//         if (item.id === id) {
+//             return {
+//                 ...item, // ✅ حالا تمام پراپرتی‌های "item" کپی می‌شوند
+//                 text: newText
+//             }
+//         }
+//         return item;
+//     })
+// }
