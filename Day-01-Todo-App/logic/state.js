@@ -100,3 +100,20 @@ export const undo = function (history) {
     }
 
 }
+
+export const editTodo = function (state, id, newText) {
+
+    return state.map(item => {
+        if (item.id === id) {
+            return {
+                ...todo,
+                text: newText
+            }
+
+        }
+
+        return item;
+    })
+
+
+}
