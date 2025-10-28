@@ -27,8 +27,6 @@ const AppController = function () {
 
         if (textInputTodo === '') {
 
-            // return alert('فیلد ورودی خالی است😶')
-
             return errText('فیلد ورودی خالی است😶')
 
         }

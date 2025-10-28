@@ -1,262 +1,322 @@
-/* تنظیمات عمومی و راست به چپ */
-/* @font-face {
-    font-family: 'Vazirmatn';
-    src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.3/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2');
-    font-weight: 400;
-} */
+/* ۱. ایمپورت فونت و تنظیمات ریشه */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
-    --border-color: #dee2e6;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    --text-muted-color: #999; /* برای آیتم‌های تکمیل شده */
+    --font-family: 'Vazirmatn', sans-serif;
+    
+    /* پالت رنگی مدرن */
+    --c-primary: hsl(210, 90%, 55%);
+    --c-primary-light: hsl(210, 90%, 95%);
+    --c-success: hsl(140, 60%, 45%);
+    --c-danger: hsl(0, 75%, 60%);
+    --c-warning: hsl(40, 90%, 60%);
+    
+    --c-white: #FFFFFF;
+    --c-bg: hsl(210, 30%, 97%); /* پس‌زمینه اصلی صفحه */
+    --c-surface: var(--c-white); /* پس‌زمینه کارت */
+    
+    --c-text: hsl(210, 20%, 25%);
+    --c-text-muted: hsl(210, 15%, 55%);
+    --c-border: hsl(210, 25%, 88%);
+    
+    /* سایه‌ها و گوشه‌های گرد */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* انیمیشن */
+    --transition: all 0.2s ease-in-out;
 }
 
+/* ۲. ریست و تنظیمات عمومی بدنه */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Vazirmatn', sans-serif;
-    background-color: var(--bg-color);
-    color: #343a40;
+    font-family: var(--font-family);
+    background-color: var(--c-bg);
+    color: var(--c-text);
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 40px 20px;
     min-height: 100vh;
-    direction: rtl; 
+    padding: 2rem 1rem;
+    direction: rtl;
     text-align: right;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
-/* ساختار اصلی برنامه */
+/* ۳. کانتینر اصلی برنامه */
 .app-container {
     width: 100%;
-    max-width: 550px;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: var(--shadow);
+    max-width: 600px;
+    background-color: var(--c-surface);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
 }
 
 h1 {
     text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 30px;
-    font-size: 2rem;
+    color: var(--c-primary);
+    margin-bottom: 2rem;
+    font-weight: 700;
 }
 
-/* بخش ورودی */
+/* ۴. بخش ورودی */
 .input-area {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
 #todo-input {
     flex-grow: 1;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-md);
     font-size: 1rem;
-    font-family: inherit;
+    font-family: var(--font-family);
+    transition: var(--transition);
 }
 
-/* دکمه‌ها */
+#todo-input:focus {
+    outline: none;
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px var(--c-primary-light);
+}
+
+/* ۵. استایل دکمه‌های عمومی */
 button {
     cursor: pointer;
-    padding: 10px 15px;
     border: none;
-    border-radius: 8px;
-    font-family: inherit;
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
     font-size: 1rem;
-    transition: background-color 0.2s;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    transition: var(--transition);
+    white-space: nowrap; /* جلوگیری از شکستن متن دکمه‌ها */
 }
 
 #add-todo-btn {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--c-primary);
+    color: var(--c-white);
 }
 
 #add-todo-btn:hover {
-    background-color: #0056b3;
+    filter: brightness(1.1);
 }
 
-/* لیست وظایف */
-.todo-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-}
-
-
-/* ------------------------------------------- */
-/* استایل آیتم و قابلیت Edit/Toggle/Delete */
-/* ------------------------------------------- */
-
-.todo-item {
+/* ۶. بخش کنترل‌ها (فیلتر و Undo) */
+.controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.3s;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--c-border);
+}
+
+.filters button {
+    background: none;
+    color: var(--c-text-muted);
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+.filters button.active {
+    color: var(--c-primary);
+    font-weight: 700;
+}
+
+.filters button:hover {
+    color: var(--c-primary);
+}
+
+#undo-btn {
+    background-color: var(--c-warning);
+    color: var(--c-white);
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+#undo-btn:disabled {
+    background-color: var(--c-border);
+    color: var(--c-text-muted);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ۷. لیست وظایف (Todo List) */
+.todo-list {
+    list-style: none;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid var(--c-border);
+    transition: background-color 0.15s;
 }
 
 .todo-item:last-child {
     border-bottom: none;
 }
 
-/* ۱. استایل SPAN نمایش متن (item-text) */
-.todo-item .item-text {
-    flex-grow: 1; 
-    font-size: 1.1rem;
-    padding: 8px 0;
-    /* این بخش برای نشان دادن Strikethrough روی متن تکمیل شده مهم است */
-    transition: color 0.3s, text-decoration 0.3s;
-}
-
-/* ۲. استایل INPUT ویرایش (edit-input) */
-.todo-item .edit-input {
-    display: none; /* ⬅️ در حالت عادی مخفی است */
-    flex-grow: 1; 
-    padding: 8px 10px;
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
-}
-
-/* ۳. مدیریت حالت ویرایش (کلاس "editing") */
-/* وقتی li دارای کلاس "editing" باشد: */
-.todo-item.editing .item-text,
-.todo-item.editing .item-actions { 
-    /* متن و دکمه‌های اکشن را مخفی کن */
-    display: none;
-}
-
-.todo-item.editing .edit-input {
-    /* فیلد ویرایش را نمایش بده */
-    display: block;
+.todo-item:hover {
+    background-color: hsl(210, 30%, 98%);
 }
 
 
-/* ۴. استایل‌های تکمیل شده (Completed) */
-.todo-item.completed .item-text {
-    text-decoration: line-through;
-    color: var(--text-muted-color);
-    opacity: 0.7;
-}
-
-/* ۵. اکشن‌ها و دکمه‌ها درون آیتم */
-.item-actions { /* ⬅️ نام کلاس نهایی (item-actions) */
-    display: flex;
-    gap: 8px;
-    margin-right: 15px;
-}
-
-.action-btn {
-    padding: 6px 10px;
-    font-size: 0.9rem;
-}
-
-.complete-btn { /* ⬅️ نام کلاس نهایی (complete-btn) */
-    background-color: var(--success-color);
-    color: white;
-}
-
-.delete-btn {
-    background-color: var(--danger-color);
-    color: white;
-}
-
-
-.texterr {
-            /* اطمینان از قرارگیری در یک خط جدید و عرض کامل */
+   .texterr {
             display: block;
-            /* رنگ و فونت برای جلب توجه */
-            color: #ef4444; /* رنگ قرمز Tailwind (red-500) */
-            font-size: 0.875rem; /* small text */
-            margin-top: 0.5rem; /* فاصله از بالا */
-            margin-bottom: 0.5rem; /* فاصله از پایین */
-            height: 1.25rem; /* ارتفاع ثابت برای جلوگیری از پرش چیدمان (CLS) */
-            opacity: 0; /* در ابتدا مخفی است */
+            color: #ef4444; /* red-500 */
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            height: 1.25rem; 
+            opacity: 0; 
             transition: opacity 0.3s ease;
+            user-select: none;
         }
 
         .texterr.visible {
             opacity: 1;
         }
 
+/* ۸. محتوای آیتم (متن، ورودی ویرایش، دکمه‌ها) */
+.item-text {
+    flex-grow: 1;
+    margin-left: 1rem; /* فاصله بین متن و دکمه‌ها */
+    font-size: 1.05rem;
+    color: var(--c-text);
+    transition: var(--transition);
+    cursor: text; /* نشان می‌دهد که قابل ویرایش است */
+    word-break: break-word; /* برای شکستن کلمات طولانی */
+}
 
-/* ------------------------------------------- */
-/* کنترل‌ها، Undo و فیلترها */
-/* ------------------------------------------- */
+.edit-input {
+    display: none; /* حالت پیش‌فرض مخفی */
+    flex-grow: 1;
+    border: 1px solid var(--c-primary);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-family);
+    font-size: 1.05rem;
+}
 
-.controls {
+.item-actions {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed var(--border-color);
+    gap: 0.5rem;
+    flex-shrink: 0; /* جلوگیری از فشرده شدن دکمه‌ها */
 }
 
-.filters button {
-    background: none;
-    color: var(--secondary-color);
-    border: 1px solid transparent;
-    padding: 5px 10px;
-}
-
-.filters button.active {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-#undo-btn {
-    background-color: var(--secondary-color);
-    color: white;
+.action-btn {
+    padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--c-white);
 }
 
-#undo-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.complete-btn {
+    background-color: var(--c-success);
 }
 
+.delete-btn {
+    background-color: var(--c-danger);
+}
+
+.action-btn:hover {
+    filter: brightness(1.15);
+}
+
+/* ۹. مدیریت حالت‌ها (Completed & Editing) */
+
+/* حالت تکمیل شده */
+.todo-item.completed .item-text {
+    text-decoration: line-through;
+    color: var(--c-text-muted);
+    opacity: 0.8;
+}
+
+/* حالت ویرایش */
+.todo-item.editing .item-text,
+.todo-item.editing .item-actions {
+    display: none; /* مخفی کردن متن و دکمه‌ها */
+}
+
+.todo-item.editing .edit-input {
+    display: block; /* نمایش فیلد ویرایش */
+}
+
+/* ۱۰. بخش خلاصه (Summary) */
 .summary {
     text-align: center;
-    margin-top: 20px;
-    color: var(--secondary-color);
+    margin-top: 2rem;
+    color: var(--c-text-muted);
     font-size: 0.95rem;
 }
 
 .summary #active-count {
-    font-weight: bold;
-    color: var(--primary-color);
+    font-weight: 700;
+    color: var(--c-primary);
+    padding: 0 0.25rem;
 }
 
-/* مدیای کوئری برای ریسپانسیو بودن */
-@media (max-width: 600px) {
-    .app-container {
-        padding: 20px;
+/* ۱۱. طراحی ریسپانسیو (Mobile-First) */
+@media (max-width: 640px) {
+    body {
+        padding: 0.5rem;
     }
+
+    .app-container {
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* شکستن بخش ورودی به حالت ستونی */
+    .input-area {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* شکستن بخش کنترل‌ها به حالت ستونی */
     .controls {
         flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
+        align-items: stretch; /* دکمه‌ها تمام عرض شوند */
+        gap: 1rem;
     }
+
     .filters {
         display: flex;
         justify-content: space-around;
         width: 100%;
+        border-bottom: 1px solid var(--c-border);
+        padding-bottom: 1rem;
+    }
+
+    .filters button {
+        margin-left: 0;
+    }
+    
+    .todo-item {
+        padding: 0.75rem 0.25rem;
+    }
+
+    .item-text {
+        font-size: 1rem;
     }
 }
