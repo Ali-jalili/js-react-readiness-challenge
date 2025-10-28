@@ -16,7 +16,7 @@ export const activeCountSpan = document.getElementById('active-count');
 
 
 
-const createTodoElement = function (todo) {
+export const createTodoElement = function (todo) {
 
     const newElement = document.createElement('li');
 
@@ -32,7 +32,7 @@ const createTodoElement = function (todo) {
 }
 
 
-const renderTodoList = function (todos, currentFilter) {
+export const renderTodoList = function (todos, currentFilter) {
 
     todoList.textContent = '';
 
@@ -64,7 +64,7 @@ const renderTodoList = function (todos, currentFilter) {
 
 
 
-const updateActiveCount = function (todos) {
+export const updateActiveCount = function (todos) {
 
     const upItem = todos.filter(item => item.isCompleted === false);
 
@@ -73,7 +73,7 @@ const updateActiveCount = function (todos) {
 
 
 
-const updateUndoButton = function (history) {
+export const updateUndoButton = function (history) {
 
     if (history.length > 0) {
         undoButton.disabled = false
