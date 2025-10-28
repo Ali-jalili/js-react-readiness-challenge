@@ -27,9 +27,18 @@ export const createTodoElement = function (todo) {
     if (todo.isCompleted) {
         newElement.classList.add('completed')
     }
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'حذف';
+    deleteBtn.classList.add('delete-todo');
+
+    // اضافه کردن دکمه به li
+    newElement.appendChild(deleteBtn);
+
     return newElement;
 
 }
+
 
 
 export const renderTodoList = function (todos, currentFilter) {

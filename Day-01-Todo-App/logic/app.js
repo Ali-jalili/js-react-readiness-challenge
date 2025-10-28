@@ -66,28 +66,63 @@ const AppController = function () {
     });
 
 
+    // const handleTodoItemClick = function (e) {
+
+    //     const clickedElement = e.target.closest('[data-id]');;
+    //     if (!clickedElement) return;
+    //     const todoId = +clickedElement.dataset.id;
+
+
+    //     if (e.target.classList.contains('delete-todo')) {
+    //         // منطق حذف
+    //         history.push(currentState);
+    //         currentState = deleteTodo(currentState, todoId); // ⬅️ استفاده از تابع deleteTodo
+
+    //     } else {
+    //         // منطق Toggle (که قبلاً نوشتیم)
+    //         history.push(currentState);
+    //         currentState = toggleTodo(currentState, todoId); // ⬅️ استفاده از تابع toggleTodo
+    //     }
+
+    //     // ۱. ذخیره تاریخچه
+    //     history.push(currentState);
+
+    //     // ۲. به‌روزرسانی State
+    //     currentState = toggleTodo(currentState, todoId);
+
+    //     // ۳. به‌روزرسانی‌های نهایی 
+    //     saveState(currentState);
+    //     renderTodoList(currentState, currentFilter);
+    //     updateActiveCount(currentState);
+    //     updateUndoButton(history);
+
+
+    // }
+
     const handleTodoItemClick = function (e) {
 
-        const clickedElement = e.target.closest('[data-id]');;
-
-
+        // ۱. Event Delegation: پیدا کردن ID
+        const clickedElement = e.target.closest('[data-id]');
         if (!clickedElement) return;
+        const todoId = Number(clickedElement.dataset.id); // ⬅️ استفاده از Number برای اطمینان از نوع
 
-        const todoId = +clickedElement.dataset.id;
-
-        // ۱. ذخیره تاریخچه
+        // ۲. ذخیره تاریخچه (قبل از هر تغییری)
         history.push(currentState);
 
-        // ۲. به‌روزرسانی State
-        currentState = toggleTodo(currentState, todoId);
+        // ۳. منطق اصلی: تشخیص Delete یا Toggle
+        if (e.target.classList.contains('delete-todo')) {
+            // عملیات حذف
+            currentState = deleteTodo(currentState, todoId); // ⬅️ تغییر State اصلی 
+        } else {
+            // عملیات Toggle (کلیک روی خود آیتم یا متن)
+            currentState = toggleTodo(currentState, todoId); // ⬅️ تغییر State اصلی
+        }
 
-        // ۳. به‌روزرسانی‌های نهایی 
+        // ۴. به‌روزرسانی‌های نهایی (فقط یک بار اجرا شوند)
         saveState(currentState);
         renderTodoList(currentState, currentFilter);
         updateActiveCount(currentState);
         updateUndoButton(history);
-
-
     }
 
     todoList.addEventListener('click', handleTodoItemClick);
@@ -135,6 +170,9 @@ const AppController = function () {
     filterAll.addEventListener('click', handleFilterChange);
     filterActive.addEventListener('click', handleFilterChange);
     filterCompleted.addEventListener('click', handleFilterChange);
+
+
+
 
 
 }
