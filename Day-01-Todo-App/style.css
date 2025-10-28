@@ -199,3 +199,15 @@ button {
         width: 100%;
     }
 }
+
+
+/* style.css */
+
+.todo-list .completed {
+    /* خط کشیدن روی متن */
+    text-decoration: line-through;
+    /* کم‌رنگ کردن متن */
+    color: var(--text-muted-color, #999); 
+    /* اگر opacity هم نیاز دارید */
+    opacity: 0.7;
+}
