@@ -13,3 +13,55 @@ export const filterCompleted = document.getElementById('filter-completed');
 
 // ۴. المان نمایش خلاصه
 export const activeCountSpan = document.getElementById('active-count');
+
+
+
+const createTodoElement = function (todo) {
+
+    const newElement = document.createElement('li');
+
+    newElement.setAttribute('data-id', todo.id);
+
+    newElement.textContent = todo.text;
+
+    if (todo.isCompleted) {
+        newElement.classList.add('completed')
+    }
+    return newElement;
+
+}
+
+
+const renderTodoList = function (todos, currentFilter) {
+
+    todoList.textContent = '';
+
+
+    let filteredTodos;
+
+    if (currentFilter === 'active') {
+        filteredTodos = todos.filter(item => !item.isCompleted)
+    }
+
+    else if (currentFilter === 'completed') {
+        filteredTodos = todos.filter(item => item.isCompleted)
+    }
+
+    else {
+        filteredTodos = todos
+    }
+
+    filteredTodos.forEach(item => {
+
+        const todoElement = createTodoElement(item)
+
+        todoList.append(todoElement)
+
+    })
+
+
+}
+
+
+
+
