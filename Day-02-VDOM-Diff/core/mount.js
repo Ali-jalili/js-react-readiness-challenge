@@ -20,6 +20,19 @@ export const mount = function (vnode, container) {
         }
     }
 
+    for (const child of vnode.children) {
+
+        if (typeof child === 'string') {
+
+            const textNode = document.createTextNode(child);
+            el.appendChild(textNode)
+        }
+
+        else {
+            mount(child, el);
+        }
+    }
+
     container.appendChild(el);
     return el;
 
