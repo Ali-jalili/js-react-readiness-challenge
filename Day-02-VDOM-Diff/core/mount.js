@@ -1,7 +1,4 @@
 
-import { h } from "./h.js"
-
-
 export const mount = function (vnode, container) {
 
     const el = document.createElement(vnode.type);
