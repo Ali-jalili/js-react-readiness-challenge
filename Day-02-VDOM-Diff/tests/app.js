@@ -1,4 +1,5 @@
 import { h } from "../core/h.js";
+import { mount } from "../core/mount.js";
 
 
 // 1. ساختار ساده: یک تگ h1 با متن
@@ -11,3 +12,5 @@ const VNode2 = h('div', { class: 'container' }, [
 ]);
 
 
+
+console.log();
