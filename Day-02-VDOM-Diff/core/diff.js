@@ -1,14 +1,17 @@
-// Day-02-VDOM-Diff/core/diff.js (نهایی)
+
 import { mount } from "./mount.js";
 import { patchProps } from "./patchProps.js";
 
 export const diff = function (oldVNode, newVNode, parentEl) {
 
     // 1. سناریو حذف (Removal)
+
     if (newVNode === null) {
+
         if (oldVNode && oldVNode.el) {
             parentEl.removeChild(oldVNode.el);
         }
+
         return;
     }
 
@@ -30,6 +33,7 @@ export const diff = function (oldVNode, newVNode, parentEl) {
     // 4. سناریو به‌روزرسانی (Update - تگ‌ها و نوع VNode یکسان هستند)
 
     // 4.1. مدیریت VNode متنی (Text Node)
+
     if (newVNode.type === 'text') {
         if (newVNode.children !== oldVNode.children) {
             oldVNode.el.nodeValue = newVNode.children;

@@ -1,9 +1,10 @@
-// Day-02-VDOM-Diff/core/mount.js (نسخه نهایی و قطعی)
 
 export const mount = function (vnode, container) {
 
     // ⭐⭐ گارد ایمنی نهایی: اگر ورودی یک رشته بود (مثل فراخوانی از diff) ⭐⭐
+
     if (typeof vnode === 'string') {
+
         const textNode = document.createTextNode(vnode);
         container.appendChild(textNode);
 
@@ -11,12 +12,17 @@ export const mount = function (vnode, container) {
         // در این حالت، ما باید آن را به یک VNode آبجکتی موقت تبدیل کنیم تا در diff ذخیره شود.
         // اما از آنجا که diff انتظار دارد mount چیزی را به DOM بچسباند، همین کافی است. 
         // در diff، باید oldVNode آبجکتی باشد تا بتواند newVNode (رشته) را مقایسه کند.
+
         return textNode;
     }
+
+
     // ⭐⭐ پایان گارد ایمنی ⭐⭐
 
     // 1. مدیریت VNode متنی (Text VNode Object) - که در حلقه فرزندان ساخته شده
+
     if (vnode.type === 'text') {
+
         const textNode = document.createTextNode(vnode.children);
         container.appendChild(textNode);
         vnode.el = textNode;

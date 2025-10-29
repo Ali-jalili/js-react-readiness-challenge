@@ -1,7 +1,9 @@
-// Day-02-VDOM-Diff/core/patchProps.js (نهایی)
+
+
 export const patchProps = function (el, oldProps = {}, newProps = {}) {
 
     // 1. به‌روزرسانی و اضافه کردن صفات
+
     for (let key in newProps) {
         const oldValue = oldProps[key];
         const newValue = newProps[key];
