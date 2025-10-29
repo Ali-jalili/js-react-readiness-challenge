@@ -31,6 +31,7 @@ export const mount = function (vnode, container) {
     }
 
     container.appendChild(el);
+    vnode.el = el;
     return el;
 
 }

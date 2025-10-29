@@ -1,5 +1,5 @@
 import { mount } from "./mount.js";
-// import patchProps from "./patchProps.js" // باید patchProps را هم import کنید
+import { patchProps } from "./patchProps.js" // باید patchProps را هم import کنید
 
 export const diff = function (oldVNode, newVNode, parentEl) {
 
@@ -27,15 +27,27 @@ export const diff = function (oldVNode, newVNode, parentEl) {
     // 4. سناریو به‌روزرسانی (Update - تگ‌ها یکسان هستند)
     if (oldVNode.type === newVNode.type) {
 
-        const el = oldVNode.el;
-        newVNode.el = el; // انتقال اشاره به DOM واقعی به VNode جدید
+        // ⭐⭐ A. منطق جدید: مدیریت VNode متنی (String) ⭐⭐
+        if (typeof newVNode === 'string') {
+            // اگر newVNode یک رشته است، آن را با oldVNode (که قبلاً باید VNode آبجکت بوده باشد) مقایسه کن
+            if (newVNode !== oldVNode) {
+                // به‌روزرسانی گره متنی واقعی (نه المان)
+                // اگر oldVNode یک آبجکت بود و فرزند متنی داشت، oldVNode.el گره متنی است.
+                // اگر oldVNode یک رشته متنی بود، oldVNode.el گره متنی است.
+                oldVNode.el.nodeValue = newVNode;
+            }
+            return; // ⬅️ مهم: از تابع خارج شو تا به خط newVNode.el = el نرسد!
+        }
+        // ⭐⭐ پایان منطق متنی ⭐⭐
 
-        // فرض می‌کنیم patchProps در همین فایل یا import شده است
-        patchProps(el, oldVNode.props, newVNode.props); // بروزرسانی صفات
+        // ادامه منطق برای آبجکت VNode
+        const el = oldVNode.el;
+        newVNode.el = el; // ⬅️ حالا مطمئنیم newVNode یک آبجکت است و این خط ایمن است
+
+        patchProps(el, oldVNode.props, newVNode.props);
 
         const oldChildren = oldVNode.children;
         const newChildren = newVNode.children;
-
         // A. مدیریت محتوای متنی ساده در برابر محتوای پیچیده
         if (typeof newChildren === 'string') {
 
