@@ -1,14 +1,15 @@
+// Day-02-VDOM-Diff/core/diff.js (نهایی)
 import { mount } from "./mount.js";
-import { patchProps } from "./patchProps.js" // باید patchProps را هم import کنید
+import { patchProps } from "./patchProps.js";
 
 export const diff = function (oldVNode, newVNode, parentEl) {
 
     // 1. سناریو حذف (Removal)
     if (newVNode === null) {
-        if (oldVNode) {
-            parentEl.removeChild(oldVNode.el)
+        if (oldVNode && oldVNode.el) {
+            parentEl.removeChild(oldVNode.el);
         }
-        return
+        return;
     }
 
     // 2. سناریو اضافه (Addition)
@@ -19,48 +20,45 @@ export const diff = function (oldVNode, newVNode, parentEl) {
 
     // 3. سناریو جایگزینی (Replacement)
     if (oldVNode.type !== newVNode.type) {
-        parentEl.removeChild(oldVNode.el)
-        mount(newVNode, parentEl)
-        return
+        if (oldVNode.el) {
+            parentEl.removeChild(oldVNode.el);
+        }
+        mount(newVNode, parentEl);
+        return;
     }
 
-    // 4. سناریو به‌روزرسانی (Update - تگ‌ها یکسان هستند)
-    if (oldVNode.type === newVNode.type) {
+    // 4. سناریو به‌روزرسانی (Update - تگ‌ها و نوع VNode یکسان هستند)
 
-        // ⭐⭐ A. منطق جدید: مدیریت VNode متنی (String) ⭐⭐
-        if (typeof newVNode === 'string') {
-            // اگر newVNode یک رشته است، آن را با oldVNode (که قبلاً باید VNode آبجکت بوده باشد) مقایسه کن
-            if (newVNode !== oldVNode) {
-                // به‌روزرسانی گره متنی واقعی (نه المان)
-                // اگر oldVNode یک آبجکت بود و فرزند متنی داشت، oldVNode.el گره متنی است.
-                // اگر oldVNode یک رشته متنی بود، oldVNode.el گره متنی است.
-                oldVNode.el.nodeValue = newVNode;
-            }
-            return; // ⬅️ مهم: از تابع خارج شو تا به خط newVNode.el = el نرسد!
+    // 4.1. مدیریت VNode متنی (Text Node)
+    if (newVNode.type === 'text') {
+        if (newVNode.children !== oldVNode.children) {
+            oldVNode.el.nodeValue = newVNode.children;
         }
-        // ⭐⭐ پایان منطق متنی ⭐⭐
+        newVNode.el = oldVNode.el;
+        return;
+    }
 
-        // ادامه منطق برای آبجکت VNode
+    // 4.2. مدیریت VNode المانی (Element VNode)
+    if (typeof newVNode.type === 'string') {
+
         const el = oldVNode.el;
-        newVNode.el = el; // ⬅️ حالا مطمئنیم newVNode یک آبجکت است و این خط ایمن است
+        newVNode.el = el;
 
         patchProps(el, oldVNode.props, newVNode.props);
 
-        const oldChildren = oldVNode.children;
-        const newChildren = newVNode.children;
-        // A. مدیریت محتوای متنی ساده در برابر محتوای پیچیده
-        if (typeof newChildren === 'string') {
+        const oldChildren = oldVNode.children || []; // گارد ایمنی
+        const newChildren = newVNode.children || []; // گارد ایمنی
 
-            // محتوای جدید متن است، آیا با محتوای قبلی فرق دارد؟
+        // A. مدیریت محتوای متنی ساده در برابر محتوای پیچیده (فرزندان)
+        if (typeof newChildren === 'string') {
             if (newChildren !== oldChildren) {
-                el.textContent = newChildren; // جایگزینی سریع با متن جدید
+                el.textContent = newChildren;
             }
         }
-
         // B. مدیریت محتوای آرایه‌ای (VNodeها)
         else {
 
-            // B.1. اگر قبلی متن بود، باید آن را پاک کنیم تا بتوانیم المان‌های جدید را نصب کنیم
+            // B.1. اگر قبلی متن بود، باید آن را پاک کنیم
             if (typeof oldChildren === 'string') {
                 el.textContent = '';
             }
@@ -82,9 +80,11 @@ export const diff = function (oldVNode, newVNode, parentEl) {
             // B.4. اگر طول آرایه قدیمی بیشتر است، فرزندان اضافی را حذف کن
             if (oldChildren.length > newChildren.length) {
                 for (let i = commonLength; i < oldChildren.length; i++) {
-                    el.removeChild(oldChildren[i].el);
+                    if (oldChildren[i].el) {
+                        el.removeChild(oldChildren[i].el);
+                    }
                 }
             }
         }
-    } // بلاک if نهایی اینجا به درستی بسته می‌شود
+    }
 }

@@ -1,18 +1,14 @@
-//ساخت درخت مجازی (VNode Object).
-
-export const h = function (type, props, children) {
-
-    props = props ?? {}
-    children = children ?? [];
+// Day-02-VDOM-Diff/core/h.js (نهایی)
+export const h = function (type, props = null, children = []) {
 
     if (!Array.isArray(children)) {
-        children = [children]
+        children = [children];
     }
 
     return {
-        type,
-        props,
-        children
-    };
-
+        type: type,
+        props: props,
+        children: children,
+        el: null
+    }
 }
