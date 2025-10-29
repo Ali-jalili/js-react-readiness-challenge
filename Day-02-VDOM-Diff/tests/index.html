@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDOM Diff Challenge (Day 02)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <h1>مینی‌پروژه ۲: Virtual DOM</h1>
+        <p class="description">خروجی درخت مجازی (VNode) شما در این قسمت نمایش داده خواهد شد.</p>
+
+        <div id="root">
+            <p class="loading-message">در حال بارگذاری درخت مجازی...</p>
+        </div>
+
+        <div class="controls">
+            <button id="update-btn">اعمال تغییرات (Diff)</button>
+            <p class="status" id="patch-status">وضعیت: آماده</p>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
