@@ -1,3 +1,5 @@
+//ساخت درخت مجازی (VNode Object).
+
 export const h = function (type, props, children) {
 
     props = props ?? {}
