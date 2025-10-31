@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 3 - Fetch With Policy</title>
-    <link rel="stylesheet" href="style.css">
+    <title>پروژه ۳: Async پیشرفته</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <div class="app">
-        <h1>Search Data</h1>
-        <input type="text" id="searchInput" placeholder="Type to search..." />
-        <button id="searchBtn">Search</button>
-        <div id="results"></div>
+    <div class="container">
+        <h1>جستجوی پیشرفته (fetchWithPolicy)</h1>
+        <p class="description">
+            با هر بار تایپ کردن، یک درخواست جدید ارسال می‌شود. این پروژه باید درخواست‌های قبلی را لغو کند (Cancel) تا
+            Race Condition رخ ندهد و نتایج را از کش (Cache) بخواند.
+        </p>
+
+        <input type="text" id="search-input" placeholder="عبارت جستجو...">
+
+        <div class="status-container">
+            <span id="request-status" class="status-badge processing">آماده</span>
+            <span id="cache-status" class="status-badge cache-miss">بدون کش</span>
+        </div>
+
+        <div class="results-container">
+            <ul id="results-list">
+                <li class="result-item loading-msg">تایپ کنید تا جستجو آغاز شود...</li>
+            </ul>
+        </div>
     </div>
 
     <script type="module" src="../js/app.js"></script>

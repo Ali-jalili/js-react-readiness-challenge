@@ -1,40 +1,110 @@
+:root {
+    --primary-color: #007bff;
+    --text-color: #333;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+    font-family: 'Tahoma', 'Vazirmatn', sans-serif; /* فونت فارسی شیک */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    direction: rtl; /* برای فارسی */
+    text-align: right;
+    padding-top: 50px;
 }
 
-.app {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  border-radius: 8px;
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
 }
 
-input[type="text"] {
-  width: 70%;
-  padding: 10px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+h1 {
+    color: var(--primary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
+.description {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
 }
 
-button:hover {
-  background-color: #0056b3;
+/* ورودی جستجو */
+#search-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
 }
 
-#results {
-  margin-top: 20px;
+#search-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* نشانگر وضعیت‌ها */
+.status-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.processing { background-color: #ffc107; color: #333; } /* زرد */
+.success { background-color: #28a745; } /* سبز */
+.error { background-color: #dc3545; } /* قرمز */
+.cache-hit { background-color: var(--primary-color); } /* آبی */
+.cache-miss { background-color: #6c757d; } /* خاکستری */
+
+
+/* لیست نتایج */
+.results-container {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+#results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.result-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+    color: var(--text-color);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.loading-msg {
+    color: var(--primary-color);
+    font-style: italic;
 }
