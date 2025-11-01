@@ -165,8 +165,26 @@ const handleNext = async function () {
 
 }
 
+
+
+const handlePrev = function () {
+    // ۱. مرحله جدید را محاسبه کن: کاهش یک واحد
+    const newStep = appState.formStatus.currentStep - 1;
+
+    // ۲. خطاها را پاک کن (اطمینان از UI تمیز)
+    clearErrors();
+
+    // ۳. UI را به مرحله جدید به‌روزرسانی کن
+    // نیازی به بررسی خطا نیست، زیرا بازگشت همیشه مجاز است.
+    updateUIForStep(newStep);
+};
+
+
+// اتصال تابع به دکمه "بعدی"
 nextBtn.addEventListener('click', handleNext);
 
+// اتصال تابع به دکمه "قبلی"
+prevBtn.addEventListener('click', handlePrev);
 
 
 const handleInputChange = function (e) {
