@@ -58,6 +58,7 @@ const appState = {
 
 };
 
+
 //بروز رسانی State
 
 const updateUIForStep = function (newStep) {
@@ -116,3 +117,52 @@ const clearErrors = function () {
     inputEelemnts.forEach(elem => elem.classList.remove('invalid'))
 
 }
+
+const updateUIForErrors = (errors) => {
+    // ۱. پاک کردن خطاهای قبلی (احتیاطی: اگر قبلاً clearErrors فراخوانی نشده باشد)
+    // بهتر است این کار را در handleNext انجام دهیم، اما اینجا هم می‌توان انجام داد.
+
+    // ۲. ذخیره خطاها در State
+    appState.formStatus.errors = errors;
+
+    // ۳. نمایش خطاها در DOM
+    for (const fieldName in errors) {
+
+        // پیدا کردن المان نمایش پیام خطا با استفاده از data-field
+        const errorMessageEl = document.querySelector(`.error-message[data-field="${fieldName}"]`);
+
+        // پیدا کردن Input اصلی برای تغییر استایل
+        const inputEl = document.getElementById(fieldName);
+
+        if (errorMessageEl) {
+            errorMessageEl.textContent = errors[fieldName];
+        }
+
+        if (inputEl) {
+            inputEl.classList.add('invalid'); // قرمز کردن فیلد
+        }
+    }
+};
+
+
+const handleNext = async function () {
+
+
+    clearErrors();
+
+    const errors = validateStepSync(appState.formStatus.currentStep, appState.formData);
+
+    if (errors) {
+
+        return updateUIForErrors(errors)
+
+    }
+
+    else {
+        updateUIForStep(appState.formStatus.currentStep + 1)
+    }
+
+
+}
+
+nextBtn.addEventListener('click', handleNext);
