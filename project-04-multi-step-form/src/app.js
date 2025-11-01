@@ -200,20 +200,6 @@ const handleInputChange = function (e) {
     appState.formData[nameFilde] = valueFilde;
 }
 
-// اتصال تابع به دکمه "بعدی"
-nextBtn.addEventListener('click', handleNext);
-
-// اتصال تابع به دکمه "قبلی"
-prevBtn.addEventListener('click', handlePrev);
-
-
-form.addEventListener('input', handleInputChange)
-
-
-
-
-
-
 
 
 function submitDataToServer(dataToSend) {
@@ -262,3 +248,20 @@ const handleSubmit = async function (e) {
 
 
 }
+
+// اتصال تابع به دکمه "بعدی"
+nextBtn.addEventListener('click', handleNext);
+
+// اتصال تابع به دکمه "قبلی"
+prevBtn.addEventListener('click', handlePrev);
+
+
+form.addEventListener('input', handleInputChange)
+
+
+form.addEventListener('submit', handleSubmit)
+
+
+
+
+
