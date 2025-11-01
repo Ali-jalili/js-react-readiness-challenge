@@ -155,17 +155,24 @@ const handleNext = async function () {
 
     clearErrors();
 
-    const errors = validateStepSync(appState.formStatus.currentStep, appState.formData);
+    const syncErrors = validateStepSync(appState.formStatus.currentStep, appState.formData);
 
-    if (errors) {
+    if (syncErrors) {
 
-        return updateUIForErrors(errors)
+        return updateUIForErrors(syncErrors)
 
     }
 
-    else {
-        updateUIForStep(appState.formStatus.currentStep + 1)
+
+    const asyncErrors = await validateStepAsync(appState.formStatus.currentStep, appState.formData);
+
+    if (asyncErrors) {
+        return updateUIForErrors(asyncErrors);
     }
+
+
+
+    updateUIForStep(appState.formStatus.currentStep + 1)
 
 
 }
