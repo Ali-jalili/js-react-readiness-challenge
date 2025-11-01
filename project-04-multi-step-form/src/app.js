@@ -103,3 +103,16 @@ const updateUIForStep = function (newStep) {
 
 
 }
+
+//پاکسازی State
+const clearErrors = function () {
+
+    appState.formStatus.errors = {};
+    errorMessages.forEach(elme => elme.textContent = '');
+
+
+    const inputEelemnts = document.querySelectorAll('input');
+
+    inputEelemnts.forEach(elem => elem.classList.remove('invalid'))
+
+}
