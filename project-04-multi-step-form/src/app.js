@@ -1,4 +1,4 @@
-import { validateStepSync } from "./validation.js";
+import { validateStepSync, validateStepAsync } from "./validation.js";
 
 // -----------------------------------------------------------
 // ۱. المان‌های اصلی فرم و مراحل
