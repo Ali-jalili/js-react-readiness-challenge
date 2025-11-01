@@ -38,8 +38,11 @@ export const validateStepSync = function (step, formData) {
     }
 
     if (Object.keys(errors).length > 0) {
+
         return errors;
+
     } else {
+
         return null;
     }
 
