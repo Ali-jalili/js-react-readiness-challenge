@@ -44,3 +44,43 @@ export const validateStepSync = function (step, formData) {
     }
 
 }
+
+
+// تابع کمکی برای شبیه‌سازی تأخیر (تماس با سرور)
+const simulateDelay = () => {
+
+    return new Promise(resolve => {
+
+        setTimeout(resolve, 1000); // تأخیر ۱ ثانیه‌ای
+
+    });
+}
+
+export const validateStepAsync = async function (step, formData) {
+
+
+    if (step !== 2) {
+        return null
+    }
+
+    const errors = {};
+
+    await simulateDelay()
+
+    const emailToCheck = formData.email.trim();
+
+    if (emailToCheck === 'test@test.com') {
+        errors.email = "این ایمیل قبلاً در سیستم ثبت شده است.";
+
+    }
+
+
+    if (Object.keys(errors).length > 0) {
+        return errors;
+    } else {
+        return null;
+    }
+
+
+
+}
