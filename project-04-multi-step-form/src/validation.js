@@ -6,7 +6,6 @@ export const validateStepSync = function (step, formData) {
 
     //level-1
 
-
     if (!formData.name.trim()) {
         errors.name = "نام کامل نمی‌تواند خالی باشد."
     }
@@ -16,7 +15,8 @@ export const validateStepSync = function (step, formData) {
     }
 
 
-    return errors
+    return errors;
 
 
 }
+
