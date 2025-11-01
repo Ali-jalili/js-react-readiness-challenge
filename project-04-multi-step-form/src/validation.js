@@ -33,7 +33,6 @@ export const validateStepSync = function (step, formData) {
             break;
 
         case 3:
-        case 3:
             break;
 
     }

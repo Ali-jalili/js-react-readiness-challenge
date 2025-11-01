@@ -63,18 +63,21 @@ const appState = {
 
 const updateUIForStep = function (newStep) {
 
+    // ۱. پاکسازی: همه دکمه‌ها را مخفی کن
     nextBtn.style.display = 'none';
     prevBtn.style.display = 'none';
     submitBtn.style.display = 'none'
 
-
+    // ۲. به‌روزرسانی State
     appState.formStatus.currentStep = newStep
 
+
+    // ۳. به‌روزرسانی UI: کلاس active را از همه مراحل و نشانگرها حذف کن
     formSteps.forEach(elem => elem.classList.remove('active'));
 
     stepIndicators.forEach(elem => elem.classList.remove('active'));
 
-
+    // ۴. به‌روزرسانی UI: اضافه کردن کلاس active به مرحله و نشانگر جدید
     const selector = `[data-step="${newStep}"]`;
 
     // استفاده از querySelectorAll برای پیدا کردن تمام المان‌های مرتبط
@@ -85,6 +88,8 @@ const updateUIForStep = function (newStep) {
         element.classList.add('active');
     });
 
+
+    // ۵. مدیریت نمایش دکمه‌ها
     if (newStep >= 1 && newStep <= 2) {
 
         nextBtn.style.display = 'block'
@@ -179,14 +184,7 @@ const handlePrev = function () {
     updateUIForStep(newStep);
 };
 
-
-// اتصال تابع به دکمه "بعدی"
-nextBtn.addEventListener('click', handleNext);
-
-// اتصال تابع به دکمه "قبلی"
-prevBtn.addEventListener('click', handlePrev);
-
-
+// مدیریت ثبت داده‌ها(Controlled Component)
 const handleInputChange = function (e) {
 
     let nameFilde = e.target.name;
@@ -194,6 +192,12 @@ const handleInputChange = function (e) {
 
     appState.formData[nameFilde] = valueFilde;
 }
+
+// اتصال تابع به دکمه "بعدی"
+nextBtn.addEventListener('click', handleNext);
+
+// اتصال تابع به دکمه "قبلی"
+prevBtn.addEventListener('click', handlePrev);
 
 
 form.addEventListener('input', handleInputChange)
