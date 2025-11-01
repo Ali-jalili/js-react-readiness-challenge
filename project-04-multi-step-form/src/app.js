@@ -166,3 +166,16 @@ const handleNext = async function () {
 }
 
 nextBtn.addEventListener('click', handleNext);
+
+
+
+const handleInputChange = function (e) {
+
+    let nameFilde = e.target.name;
+    let valueFilde = e.target.value
+
+    appState.formData[nameFilde] = valueFilde;
+}
+
+
+form.addEventListener('input', handleInputChange)
