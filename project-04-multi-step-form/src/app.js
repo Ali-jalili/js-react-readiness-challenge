@@ -208,3 +208,57 @@ prevBtn.addEventListener('click', handlePrev);
 
 
 form.addEventListener('input', handleInputChange)
+
+
+
+
+
+
+
+
+function submitDataToServer(dataToSend) {
+    // در سناریوی واقعی، این تابع با 'fetch' یا 'axios' داده‌ها را به API ارسال می‌کند.
+    console.log("Attempting to submit data to server...");
+    console.log("Data to send:", dataToSend);
+
+    return new Promise((resolve, reject) => {
+        // شبیه‌سازی زمان تأخیر شبکه (۲ ثانیه)
+        setTimeout(() => {
+            // فرض می‌کنیم ارسال همیشه موفق است (برای Optimistic UI)
+            const serverResponse = { success: true, message: "Data received and saved successfully!" };
+            resolve(serverResponse.message);
+        }, 2000); // تأخیر ۲ ثانیه‌ای
+    });
+}
+
+const handleSubmit = async function (e) {
+
+    e.preventDefault();
+
+    nextBtn.style.display = 'none';
+    prevBtn.style.display = 'none';
+    submitBtn.style.display = 'none';
+    summaryDiv.innerHTML = '<h3 style="color: blue;">🚀 در حال ارسال داده‌ها... لطفاً صبر کنید.</h3>';
+
+
+    try {
+
+        const successMessage = await submitDataToServer(appState.formData);
+
+        summaryDiv.innerHTML = `
+            <h2 style="color: green;">✅ ثبت‌نام با موفقیت انجام شد!</h2>
+            <p><strong>${successMessage}</strong></p>
+            <p>اطلاعات شما ثبت گردید:</p>
+            <pre>${JSON.stringify(appState.formData, null, 2)}</pre>
+        `;
+
+    }
+    catch (error) {
+        // در صورت خطای احتمالی (در سناریوی واقعی)
+        summaryDiv.innerHTML = `<h2 style="color: red;">❌ خطای ارسال!</h2><p>مشکلی در ارتباط با سرور پیش آمد.</p>`;
+    }
+
+
+
+
+}
