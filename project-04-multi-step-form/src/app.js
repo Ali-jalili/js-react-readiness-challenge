@@ -58,6 +58,17 @@ const appState = {
 
 };
 
+// مدیریت ثبت داده‌ها(Controlled Component)
+
+const handleInputChange = function (e) {
+
+    let nameFilde = e.target.name;
+
+    let valueFilde = e.target.value;
+
+    appState.formData[nameFilde] = valueFilde;
+}
+
 
 //بروز رسانی State
 
@@ -191,14 +202,6 @@ const handlePrev = function () {
     updateUIForStep(newStep);
 };
 
-// مدیریت ثبت داده‌ها(Controlled Component)
-const handleInputChange = function (e) {
-
-    let nameFilde = e.target.name;
-    let valueFilde = e.target.value
-
-    appState.formData[nameFilde] = valueFilde;
-}
 
 
 
