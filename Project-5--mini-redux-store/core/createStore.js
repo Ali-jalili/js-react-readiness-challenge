@@ -19,9 +19,20 @@ const createStore = function (reducer, preloadedState) {
             listeners.forEach(fun => fun())
         },
 
-        subscribe: function (listeners) {
+        subscribe: function (listener) {
+
+            listeners.push(listener);
+
+            const unsubscribe = function () {
+
+                const itemIndex = listeners.indexOf(listener)
+
+                listeners.splice(itemIndex, 1)
 
 
+            }
+
+            return unsubscribe
 
         }
 
