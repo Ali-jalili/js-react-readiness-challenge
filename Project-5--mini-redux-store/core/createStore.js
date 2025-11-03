@@ -34,12 +34,19 @@ const createStore = function (reducer, preloadedState) {
 
             return unsubscribe
 
-        }
+        },
 
 
 
     }
 
 
+    dispatch({ type: '@@INIT' });
+
+    return {
+        getState,
+        dispatch,
+        subscribe
+    }
 
 }
