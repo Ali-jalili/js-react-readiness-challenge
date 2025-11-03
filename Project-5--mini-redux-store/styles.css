@@ -1,0 +1,106 @@
+/*
+ * 🎨 استایل‌های جذاب برای پروژه ۵: Redux-Lite Counter
+ */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+/* فونت و ریست پایه‌ای */
+body {
+    direction: rtl;
+    font-family: 'Tahoma', 'Vazirmatn', sans-serif; /* فونت فارسی شیک */
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* کانتینر اصلی اپ */
+.container {
+    background-color: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* عنوان */
+h1 {
+    color: #343a40;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+}
+
+/* نمایشگر مقدار شمارنده */
+.counter-display-area {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: var(--border-radius);
+    background-color: #e9ecef;
+}
+
+.value {
+    font-size: 3rem; /* بزرگ و خوانا */
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block; /* برای نمایش بهتر */
+}
+
+/* دکمه‌ها و اکشن‌ها */
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+    flex-grow: 1;
+}
+
+.action-btn:active {
+    transform: translateY(1px);
+}
+
+.increment {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.decrement {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.increment:hover {
+    background-color: #0056b3;
+}
+
+.decrement:hover {
+    background-color: #c82333;
+}
+
+/* متن اطلاعات */
+.info-text {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
