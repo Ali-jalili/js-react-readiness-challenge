@@ -55,3 +55,27 @@ const calculateFactorial = function (num) {
 
 
 const memoizedFactorial = memoize(calculateFactorial);
+
+calculateBtn.addEventListener('click', function () {
+
+    const numInput = parseInt(memoizeInput.value);
+
+    // ۲. اجرای تابع Memoized و ذخیره نتیجه
+    const startTime = performance.now(); // شروع محاسبه زمان
+    const result = memoizedFactorial(numInput);
+    const endTime = performance.now(); // پایان محاسبه زمان
+
+    // ۳. بروزرسانی UI و نمایش وضعیت
+    calcResultEl.textContent = result;
+
+    // نمایش وضعیت Cache بر اساس زمان اجرا
+    const executionTime = (endTime - startTime).toFixed(3);
+
+    if (executionTime < 1) { // اگر زمان اجرا نزدیک به صفر بود (یعنی از Cache آمده)
+        cacheStatusEl.textContent = `Cache Hit (زمان: ${executionTime}ms)`;
+        cacheStatusEl.style.color = 'blue';
+    } else { // اگر زمانبر بود (محاسبه واقعی انجام شده)
+        cacheStatusEl.textContent = `Cache Miss (زمان: ${executionTime}ms)`;
+        cacheStatusEl.style.color = 'red';
+    }
+})
