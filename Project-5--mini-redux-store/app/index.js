@@ -24,3 +24,8 @@ const render = function () {
 store.subscribe(render);
 
 render()
+
+
+incrementBtn.addEventListener('click', () => store.dispatch(incrementAction()))
+
+decrementBtn.addEventListener('click', () => store.dispatch(decrementAction()))
