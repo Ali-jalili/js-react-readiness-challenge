@@ -1,4 +1,4 @@
-import { debounce } from "./utils/index.js";
+import { debounce, memoize } from "./utils/index.js";
 
 
 const searchInput = document.getElementById('search-input');
@@ -37,3 +37,21 @@ searchInput.addEventListener('input', function (e) {
     debouncedSearchHandler(e)
 
 })
+
+
+const calculateFactorial = function (num) {
+
+    if (num === 0 || num === 1) return 1;
+
+    let result = 1;
+
+    for (let i = 2; i <= num; i++) {
+
+        result *= i;
+    }
+    return result;
+
+}
+
+
+const memoizedFactorial = memoize(calculateFactorial);
