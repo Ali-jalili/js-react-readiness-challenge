@@ -6,6 +6,13 @@ const typingStatusEl = document.getElementById('typing-status');
 const lastSearchEl = document.getElementById('last-search');
 
 
+
+const memoizeInput = document.getElementById('memoize-input');
+const calculateBtn = document.getElementById('calculate-btn');
+const calcResultEl = document.getElementById('calc-result');
+const cacheStatusEl = document.getElementById('cache-status');
+
+
 const performSearch = function (e) {
 
     let inputVlaue = e.target.value;
