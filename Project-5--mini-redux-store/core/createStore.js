@@ -1,6 +1,6 @@
 //? هسته مدیریت state 
 
-const createStore = function (reducer, preloadedState) {
+export const createStore = function (reducer, preloadedState) {
 
     let state = preloadedState;
     const listeners = [];
