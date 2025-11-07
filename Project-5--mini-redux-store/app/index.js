@@ -20,3 +20,7 @@ const render = function () {
     counterValue.textContent = currentState.count
 
 }
+
+store.subscribe(render);
+
+render()
