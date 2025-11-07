@@ -3,18 +3,36 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Functional Toolbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروژه ۶: Functional Toolbox (ابزارهای تابعی)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>جعبه ابزار فانکشنال</h1>
-        <input type="text" id="search" placeholder="اینجا تایپ کن...">
-        <button id="testBtn">تست تابع</button>
-        <div id="output"></div>
-    </div>
-    <script src="script.js"></script>
+
+    <h1>پروژه ۶: Functional Toolbox</h1>
+    <p>پیاده‌سازی توابع Functional مانند Debounce و Memoize.</p>
+
+    <hr>
+
+    <section>
+        <h2>۱. تست Debounce (جستجوی زنده)</h2>
+        <input type="text" id="search-input" placeholder="جستجو کنید...">
+        <p>وضعیت تایپ: <span id="typing-status" class="status">در حال انتظار</span></p>
+        <p>آخرین جستجوی واقعی: <span id="last-search" class="result">هنوز جستجویی انجام نشده</span></p>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>۲. تست Memoize (محاسبات سنگین)</h2>
+        <input type="number" id="memoize-input" value="10" min="1" max="50">
+        <button id="calculate-btn">محاسبه (فاکتوریل)</button>
+        <p>نتیجه محاسبه: <span id="calc-result" class="result">---</span></p>
+        <p>وضعیت Cache: <span id="cache-status" class="status">جدید</span></p>
+    </section>
+
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>
