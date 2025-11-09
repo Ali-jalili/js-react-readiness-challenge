@@ -1,40 +1,36 @@
-  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            direction: rtl;
-            background-color: #f7f9fb;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding-top: 50px;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .result-box {
-            background-color: #eef2ff;
-            border: 1px solid #c7d2fe;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: right;
-            white-space: pre-wrap;
-            font-size: 14px;
-        }
-
-        .status-success {
-            color: #10b981;
-        }
-
-        .status-error {
-            color: #ef4444;
-        }
+/* استفاده از فونت محبوب و خوانای فارسی */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    direction: rtl;
+    background-color: #f7f9fb;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 50px;
+}
+.container {
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.result-box {
+    background-color: #eef2ff;
+    border: 1px solid #c7d2fe;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: right;
+    white-space: pre-wrap;
+    font-size: 14px;
+}
+.status-success {
+    color: #10b981; /* Tailwind green-500 */
+}
+.status-error {
+    color: #ef4444; /* Tailwind red-500 */
+}
