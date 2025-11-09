@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تمرین روز ۳: Async/Await و Fetch</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">روز ۳: Async/Await با Timing</h1>
+        <p class="text-gray-600 mb-6">هدف: نوشتن یک تابع Async با Fetch و مدیریت خطا (Try/Catch) و محاسبهٔ زمان اجرا.
+        </p>
+
+        <button id="startButton"
+            class="w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md">
+            شروع فراخوانی API
+        </button>
+
+        <div id="loadingStatus" class="mt-4 text-indigo-600 hidden">
+            در حال بارگذاری... لطفا صبر کنید.
+        </div>
+
+        <div class="result-box">
+            <h3 class="font-bold mb-2 border-b pb-1 border-indigo-200">نتایج کنسول:</h3>
+            <pre id="outputConsole" class="text-gray-700 text-left"></pre>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
