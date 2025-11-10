@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روز ۵: انتخاب صندلی سینما</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app-container">
+        <h1>انتخاب صندلی</h1>
+
+        <ul class="legend">
+            <li>
+                <div class="seat available"></div>
+                <small>موجود</small>
+            </li>
+            <li>
+                <div class="seat selected"></div>
+                <small>انتخاب شده</small>
+            </li>
+            <li>
+                <div class="seat reserved"></div>
+                <small>رزرو شده</small>
+            </li>
+        </ul>
+
+        <div class="cinema-container" id="seat-container">
+
+            <div class="screen"></div>
+
+            <div class="seat-row">
+                <div class="seat available" data-id="1"></div>
+                <div class="seat available" data-id="2"></div>
+                <div class="seat reserved" data-id="3"></div>
+                <div class="seat available" data-id="4"></div>
+                <div class="seat available" data-id="5"></div>
+                <div class="seat available" data-id="6"></div>
+            </div>
+            <div class="seat-row">
+                <div class="seat available" data-id="7"></div>
+                <div class="seat available" data-id="8"></div>
+                <div class="seat available" data-id="9"></div>
+                <div class="seat available" data-id="10"></div>
+                <div class="seat reserved" data-id="11"></div>
+                <div class="seat available" data-id="12"></div>
+            </div>
+            <div class="seat-row">
+                <div class="seat available" data-id="13"></div>
+                <div class="seat available" data-id="14"></div>
+                <div class="seat available" data-id="15"></div>
+                <div class="seat available" data-id="16"></div>
+                <div class="seat available" data-id="17"></div>
+                <div class="seat available" data-id="18"></div>
+            </div>
+            <div class="seat-row">
+                <div class="seat available" data-id="19"></div>
+                <div class="seat available" data-id="20"></div>
+                <div class="seat available" data-id="21"></div>
+                <div class="seat reserved" data-id="22"></div>
+                <div class="seat available" data-id="23"></div>
+                <div class="seat available" data-id="24"></div>
+            </div>
+        </div>
+
+        <div class="summary-container">
+            <p>
+                شما <span id="selected-seats-count">0</span> صندلی انتخاب کرده‌اید.
+            </p>
+            <p>
+                مبلغ کل: <span id="total-price">0</span> تومان
+            </p>
+        </div>
+    </main>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
