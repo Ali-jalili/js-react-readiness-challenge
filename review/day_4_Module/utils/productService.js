@@ -35,3 +35,29 @@ export const setActiveFilter = function (category) {
 
 
 }
+
+
+
+//مسئول برگرداندن لیست محصولات فیلتر شده است
+
+
+export const getFilteredProducts = function () {
+
+
+    if (activeFilter === 'all') {
+        return getProducts()
+    }
+
+    else {
+
+        const filterProduct = MASTER_PRODUCTS.filter(item => item.category === activeFilter)
+
+        return filterProduct
+    }
+
+
+
+}
+
+
+console.log(getFilteredProducts());
