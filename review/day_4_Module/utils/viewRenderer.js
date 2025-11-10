@@ -15,7 +15,7 @@ export const renderProducts = function (productsList) {
 
         const productElement = document.createElement('div');
 
-        productElement.textContent = `${item.name}+${item.category}`
+        productElement.textContent = `${item.name}`
 
         productListContainer.append(productElement)
 
