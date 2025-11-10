@@ -25,6 +25,9 @@ const handleSeatClick = function (e) {
 
     const summary = getSeatSummary();
 
+
+    console.table(summary)
+
     renderUI(summary)
 }
 
