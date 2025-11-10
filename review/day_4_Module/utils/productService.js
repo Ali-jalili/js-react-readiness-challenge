@@ -60,4 +60,4 @@ export const getFilteredProducts = function () {
 }
 
 
-console.log(getFilteredProducts());
+
