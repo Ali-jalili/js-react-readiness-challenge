@@ -17,54 +17,6 @@ const totalDisplay = document.getElementById('total-price');
 // نگهداری وضعیت صندلی‌های انتخاب شده در رندر قبلی
 let previousSelectedIds = []
 
-
-
-
-// export const renderUI = function (getSeatSummary) {
-
-//     const startTime = performance.now();
-
-//     countDisplay.textContent = getSeatSummary.count;
-//     totalDisplay.textContent = getSeatSummary.totalPrice;
-
-
-//     seats.forEach(item => {
-
-//         const idItem = item.dataset.id;
-
-
-//         if (getSeatSummary.selectedSeatsIds.includes(idItem)) {
-
-//             item.classList.add('selected')
-//             item.classList.remove('available');
-//         }
-
-//         else {
-//             item.classList.add('available')
-//             item.classList.remove('selected');
-//         }
-//     })
-
-//     const endTime = performance.now();
-
-//     const totalTime = (endTime - startTime).toFixed(2);
-
-//     console.log(totalTime);
-
-
-
-
-// }
-
-
-
-// uiRenderer.js
-
-
-
-// پیدا کردن المان DOM بر اساس ID صندلی (که در data-id ذخیره شده)
-
-
 const getSeatElementById = (seatId) => {
     // از کوئری selector برای پیدا کردن المانی که data-id آن برابر با seatId است، استفاده می‌کنیم.
     return document.querySelector(`[data-id="${seatId}"]`);
