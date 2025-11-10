@@ -3,9 +3,6 @@
 
 import { getSeatSummary } from "./stateManager.js";
 
-
-// uiRenderer.js
-
 // پیدا کردن تمام صندلی‌ها برای حلقه زدن روی آن‌ها
 const seats = document.querySelectorAll('.seat');
 
@@ -37,8 +34,6 @@ export const renderUI = function (getSeatSummary) {
             item.classList.remove('selected');
         }
     })
-
-
 
 
 
