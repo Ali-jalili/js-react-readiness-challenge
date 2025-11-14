@@ -24,8 +24,42 @@ export const handleTabClick = async function (tabId) {
             fetchDataPromise = fetchPostsData()
         }
 
+        try {
+
+            const resultData = await fetchDataPromise;
+
+            setState({
+
+                isLoading: false,
+                data: resultData,
+                error: null
+
+            })
+
+        }
+
+        catch (error) {
+
+            setState({
+
+                isLoading: false,
+                data: {},
+                error: error.message
+
+            })
+
+        }
 
 
+
+    }
+
+    else {
+        setState({
+            activeTab: tabId,
+            isLoading: false,
+            error: null
+        })
     }
 
 }
