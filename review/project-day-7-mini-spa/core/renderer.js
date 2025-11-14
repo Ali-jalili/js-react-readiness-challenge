@@ -66,6 +66,8 @@ export const renderUI = function () {
             <h2>${state.data.name}</h2>
             <p>@${state.data.username}</p>
             <p>${state.data.bio}</p>
+            <p>${state.data.location}</p>
+            <p>${state.data.registration_date}</p>
         </div>
     `;
         }
