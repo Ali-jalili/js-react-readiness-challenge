@@ -20,3 +20,15 @@ export const getState = () => state;
 export const subscribe = (listener) => listeners.push(listener)
 
 
+export const publish = () => {
+    listeners.forEach(item => item())
+}
+
+export const setState = (newState) => {
+
+    state = { ...state, ...newState };
+    publish()
+
+
+
+}
