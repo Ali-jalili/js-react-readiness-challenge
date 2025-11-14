@@ -87,7 +87,7 @@ export const renderUI = function () {
 
     }
 
-    contentArea.append(content)
+    contentArea.innerHTML = content
 
 
 
